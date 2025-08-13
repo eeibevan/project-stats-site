@@ -57,6 +57,11 @@
                 No data available :(
             </div>
         {% endif %}
+
+        <div class="chart-box">
+            <canvas id="cloneChart"></canvas>
+        </div>
+
     </section>
 
     <section>
@@ -101,9 +106,85 @@
                 No data available :(
             </div>
         {% endif %}
+        <div class="chart-box">
+            <canvas id="viewChart"></canvas>
+        </div>
     </section>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    Chart.defaults.color = "#fff";
+
+    const ctx = document.getElementById('cloneChart');
+    const labels = [
+        {% for month_clones in clones_by_month %}
+            "{{ month_names[month_clones['month']] + '-' + month_clones['year'] }}",
+        {% endfor %}
+    ];
+
+    const cloneData = [
+        {% for month_clones in clones_by_month %}
+            {{ month_clones['clone_count'] }},
+        {% endfor %}
+    ];
+
+    const uniqueCloneData = [
+        {% for month_clones in clones_by_month %}
+            {{ month_clones['unique_clone_count'] }},
+        {% endfor %}
+    ];
+
+    const cloneLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Clones',
+                data: cloneData,
+                fill: false
+            }, {
+                label: 'Unique clones',
+                data: uniqueCloneData,
+                fill: false
+            }]
+        }
+    });
+
+
+    const viewCtx = document.getElementById('viewChart');
+
+    const viewData = [
+        {% for month_views in views_by_month %}
+            {{ month_views['view_count'] }},
+        {% endfor %}
+    ];
+
+    const uniqueViewData = [
+        {% for month_views in views_by_month %}
+            {{ month_views['unique_view_count'] }},
+        {% endfor %}
+    ];
+
+    const viewLineChart = new Chart(viewCtx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Views',
+                data: viewData,
+                fill: false
+            }, {
+                label: 'Unique views',
+                data: uniqueViewData,
+                fill: false
+            }]
+        }
+    });
+
+
+</script>
+
 </body>
 </html>
