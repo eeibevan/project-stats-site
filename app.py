@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 
 def connect_db() -> sqlite3.Connection:
-    connection = sqlite3.connect("data/clone-stats.sqlite")
+    connection = sqlite3.connect("file:data/clone-stats.sqlite?mode=ro", uri=True)
     connection.row_factory = sqlite3.Row
     return connection
 
