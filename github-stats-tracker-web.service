@@ -4,6 +4,9 @@ After=docker.service network-online.target
 Requires=docker.service
 Wants=network-online.target
 
+[Install]
+WantedBy=multi-user.target
+
 [Service]
 Type=simple
 User=root
