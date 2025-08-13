@@ -1,0 +1,9 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #f9f9f9;
+}
+
+main {
+    width: 80%;
+    margin: 4.0rem auto 0 auto;
+}

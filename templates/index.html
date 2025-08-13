@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Popularity</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/index.css" rel="stylesheet">
+</head>
+<body data-bs-theme="dark">
+<main>
+    <header>
+        <h1>Project Popularity Tracker</h1>
+
+        <h2>Since {{ target_date }}</h2>
+    </header>
+
+    <section>
+        <h3>Clones</h3>
+        {% if clones %}
+            <table class="table table-responsive table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Project</th>
+                    <th scope="col">Clones</th>
+                    <th scope="col">Unique Clones</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for clone in clones %}
+                    <tr>
+                        {% if clone['project_id'] == projectCode.NetsimulyzerApp %}
+                            <td>
+                                <a href="https://github.com/usnistgov/NetSimulyzer">NetSimulyzer App</a>
+                            </td>
+                        {% elif clone['project_id'] == projectCode.NetsimulyzerModule %}
+                            <td>
+                                <a href="https://github.com/usnistgov/NetSimulyzer-ns3-module">NetSimulyzer
+                                    Module</a>
+                            </td>
+                        {% endif %}
+                        <td>{{ clone['total_clones'] }}</td>
+                        <td>{{ clone['total_unique_clones'] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th scope="col">Total</th>
+                    <td>{{ total_clones['clones'] }}</td>
+                    <td>{{ total_clones['unique_clones'] }}</td>
+                </tr>
+                </tfoot>
+            </table>
+        {% else %}
+            <div class="text-center">
+                No data available :(
+            </div>
+        {% endif %}
+    </section>
+
+    <section>
+        <h3>Views</h3>
+        {% if views %}
+            <table class="table table-responsive table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Project</th>
+                    <th scope="col">Views</th>
+                    <th scope="col">Unique Views</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for view in views %}
+                    <tr>
+                        {% if view['project_id'] == projectCode.NetsimulyzerApp %}
+                            <td>
+                                <a href="https://github.com/usnistgov/NetSimulyzer">NetSimulyzer App</a>
+                            </td>
+                        {% elif view['project_id'] == projectCode.NetsimulyzerModule %}
+                            <td>
+                                <a href="https://github.com/usnistgov/NetSimulyzer-ns3-module">NetSimulyzer
+                                    Module</a>
+                            </td>
+                        {% endif %}
+                        <td>{{ view['total_views'] }}</td>
+                        <td>{{ view['total_unique_views'] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th scope="col">Total</th>
+                    <td>{{ total_views['views'] }}</td>
+                    <td>{{ total_views['unique_views'] }}</td>
+                </tr>
+                </tfoot>
+            </table>
+        {% else %}
+            <div class="text-center">
+                No data available :(
+            </div>
+        {% endif %}
+    </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
