@@ -22,4 +22,4 @@ USER flaskuser
 EXPOSE 8000
 
 # Run Flask application
-CMD ["/app/venv/bin/gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "app:app"]
+CMD ["/app/venv/bin/gunicorn", "--bind", "0.0.0.0:8000", "--workers", "2", "app:app"]
