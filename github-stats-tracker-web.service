@@ -1,0 +1,29 @@
+[Unit]
+Description=Display GitHub project stats on the web
+After=docker.service network-online.target
+Requires=docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/project-stats-site
+
+# Stop any existing container
+ExecStartPre=-/usr/bin/docker stop github-stats-tracker-web
+ExecStartPre=-/usr/bin/docker rm github-stats-tracker-web
+ExecStartPre=/usr/bin/docker build -t github-stats-tracker-web .
+
+# Run container in foreground (no -d flag)
+ExecStart=/usr/bin/docker run --rm \
+  --name github-stats-tracker-web \
+  -p 8000:8000 \
+  -v /opt/github-stats-tracker:/app/data \
+  github-stats-tracker-web
+
+# Stop command
+ExecStop=/usr/bin/docker stop github-stats-tracker-web
+
+Restart=always
+RestartSec=10s
